@@ -1,17 +1,15 @@
-/*
- * grunt-babel-helpers
- * https://github.com/unicorn-fail/grunt-babel-helpers
- *
- * Copyright (c) 2016 Mark Carver
- * Licensed under the MIT license.
+/*!
+ * grunt-babel-helpers v1.0.0 (https://www.npmjs.com/package/grunt-babel-helpers)
+ * Copyright (c) 2016 Mark Carver (https://github.com/markcarver)
+ * Licensed under MIT (https://github.com/unicorn-fail/grunt-babel-helpers/blob/master/LICENSE-MIT)
  */
+'use strict';
 
 var chalk = require('chalk');
 var helpers = require('babel-helpers');
 var maxmin = require('maxmin');
 
-'use strict';
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   grunt.registerMultiTask('babelHelpers', function () {
     var options = this.options({
@@ -68,6 +66,8 @@ module.exports = function(grunt) {
 
     // Iterate over all src-dest file pairs.
     this.files.forEach(function (file) {
+      var i;
+      var l;
       // Ensure there are valid source file(s).
       var src = [].concat(file.src).filter(function (filepath) {
         if (!filepath || !grunt.file.exists(filepath)) {
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
       });
 
       var source = '';
-      for (var i = 0, l = src.length; i < l; i++) {
+      for (i = 0, l = src.length; i < l; i++) {
         source += grunt.file.read(src[i]);
       }
 
@@ -170,14 +170,14 @@ module.exports = function(grunt) {
       // Inject the helpers at the specified index, if any.
       var total = 0;
       var output = index ? source.substr(0, index) + '\n' : '';
-      for (var i in found) {
+      for (i in found) {
         if (found.hasOwnProperty(i)) {
           output += found[i];
           total += count[i];
           grunt.verbose.writeln('Found ' + chalk.green(count[i]) + ' ' + chalk.cyan(i) + ' Babel helper ' + grunt.util.pluralize(count[i], 'function/functions'));
         }
       }
-      output +=  '\n' + (index ? source.substr(index) : source);
+      output += '\n' + (index ? source.substr(index) : source);
 
       var outputSize = maxmin(original, output, true);
       grunt.verbose.writeln('Consolidated ' + chalk.green(total) + ' → ' + chalk.green(Object.keys(found).length) + ' Babel helper ' + grunt.util.pluralize(total, 'function/functions') + ' ' + outputSize);
@@ -191,6 +191,5 @@ module.exports = function(grunt) {
     grunt.log.ok(createdFiles + ' ' + grunt.util.pluralize(createdFiles, 'file/files') + ' created.');
 
   });
-
 
 };
