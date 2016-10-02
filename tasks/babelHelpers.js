@@ -147,8 +147,7 @@ module.exports = function(grunt) {
       // Keep track of found helpers and remove them from the source.
       var count = {};
       var found = {};
-      var prefixRegex = prefix ? prefix + '?' : '';
-      var regex = new RegExp('^(?:var|function)\\s(' + prefixRegex + options.helpers.join('|' + prefixRegex) + ')[^\\n]*\\n?$', 'gm');
+      var regex = new RegExp('^(?:var|function)\\s(' + (prefix ? prefix : '') + options.helpers.join('|' + (prefix ? prefix : '')) + ')[^\\n]*\\n?$', 'gm');
       source = source.replace(regex, function (string, name) {
         // Remove the prefix from the matched name.
         if (prefix) {
