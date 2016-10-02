@@ -1,6 +1,6 @@
 {
   "name": "grunt-babel-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Consolidates Babel helper functions",
   "homepage": "https://www.npmjs.com/package/grunt-babel-helpers",
   "author": {
